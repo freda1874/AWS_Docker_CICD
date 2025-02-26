@@ -1,0 +1,25 @@
+name: Docker CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Login Dockerhub
+      env:
+          AWS_ACCESS_KEY_ID: ${{secrets.DOCKER_USERNAME}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.DOCKER_PASSWORD}}
+      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+    - name: Build the Docker image
+      run: docker build -t aws_docker_cicd .
+       
+    - name: Push to Dockerhub
+      run: docker push fredaluo/aws_docker_cicd:latest
