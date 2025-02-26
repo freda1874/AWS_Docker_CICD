@@ -19,7 +19,7 @@ jobs:
       run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
     - name: Build the Docker image
-      run: docker build -t aws_docker_cicd .
+      run: docker build -t fredaluo/aws_docker_cicd .
        
     - name: Push to Dockerhub
       run: docker push fredaluo/aws_docker_cicd:latest
